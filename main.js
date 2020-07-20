@@ -140,7 +140,7 @@ const todoText = todos.map(function(todo) {
     return todo.text;
 });
 //High order array methods - filter
-const todoTxt = todo.filter(function(todo) {
+const todoTxt = todos.filter(function(todo) {
     return todo.isCompleted === true;
 }).map(function(todo) {
     return todo.text;
@@ -196,10 +196,70 @@ function Person(firstName, lastName, dob) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.dob = new Date(dob);
+    // We can do this better via protyping
+    /*
+    this.getBirthYear = function() { 
+        return this.dob.getFullYear();
+    }
+    */
 }
+
+//prototyping 
+//these methods can be called with the object if needed, and do not appear
+//within the object at default
+Person.prototype.getBirthYear = function() {
+    return this.dob.getFullYear();
+}
+
+// Classes - performs the same as object-prototypes just a different way to organize objects
+/*
+class Person {
+    constructor(firstName, lastName, dob) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dob = new Date(dob);
+    }
+
+    getBirthYear() {
+        return this.dob.getFullYear();
+    }
+}
+*/
 
 //instantiate object
 const person1 = new Person('John', 'Doe', '4-3-1980');
 const person2 = new Person('Mary', 'Smith', '3-6-1970');
 console.log(person1);
 console.log(person2.dob);
+
+// DOM - Document Object Model
+
+//Selectors - Single Element
+console.log(document.getElementById('my-form'));
+console.log(document.querySelector('.container'));
+
+//Selectors - Multiple Elements
+console.log(document.querySelectorAll('.item')); //will give a node-list of every "item" found
+
+//Manipulating the DOM
+const ul = document.querySelector('.items'); //will find the ul of items
+
+//ul.remove();
+//ul.lastElementChild.remove();
+//ul.firstElementChild.textContent = 'Hello'; //can change content of the ul
+//ul.children[1].innerText = 'B';
+//ul.lastElementChild.innerHTML = '<h1>Hello</h1>'; //can change HTML dynamically
+
+const btn = document.querySelector('.btn');
+btn.style.background = 'red';
+
+//Events
+
+btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('#my-form')
+    .style.background = '#ccc';
+    document.querySelector('body').classList.add('bg-dark'); //will add bg-dark from style to the body of index
+    document.querySelector('.items')
+    .lastElementChild.innerHTML = '<h1>Hello</h1>';
+});
